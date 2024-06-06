@@ -1,0 +1,34 @@
+<div class="content">
+    <?php View::content() ?>
+    <?php
+    Tag::css('empresa');     //Pone en lista un CSS (app/public/css/bienvenida.css)
+    echo  Html::includeCss();   //Adiciona los recursos enlazados de la clase en el proyecto  
+
+    $socio = new Socio();
+
+    $unSocio = $socio->getSocio($id);
+    ?>
+    <h4>Listado inscriptos a: <strong><?php
+            echo $unSocio->apellido . ", " . $unSocio->nombre; //aca iria la clase
+
+            ?></strong>
+    </h4>
+
+    <table style="text-align: center;">
+        <th>ID</th>
+        <th>Nro Inscripcion</th>
+        <th colspan="2">Acciones</th>
+
+        <?php foreach ($listClaseInscripcion as $claseInscripcion) : ?>
+            <tr>
+
+                <td><strong><?= $claseInscripcion->id ?> </strong> </td>
+                <td><strong><?= $claseInscripcion->nro_inscripcion ?> </strong> </td>
+
+                <td><?= Html::linkAction("verInscripcion/$claseInscripcion->nro_inscripcion/", 'Ver') ?></td>
+                <td><?= Html::linkAction("baja/$claseInscripcion->nro_inscripcion/", 'Borrar') ?></td>
+            </tr>
+        <?php endforeach ?>
+    </table>
+
+</div>

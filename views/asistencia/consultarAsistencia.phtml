@@ -1,0 +1,66 @@
+<div class="content">
+    <?php View::content() ?>
+<!-- Consigna 7. Consultar listado de asistencias. -->
+    <h3>Asistencias</h3>
+
+    <?= Form::open(); ?>
+
+    <label> Clase
+        <?= Form::select('Turnos.id_clase', $clases) ?></label>
+
+    <label> Fecha
+        <?= Form::date('Turnos.fecha', ['required' => 'required']) ?></label>
+
+    <?php if (!isset($fecha_seleccionada) || !isset($clase_seleccionada)) : ?>
+
+        <?= Form::submit('Consultar', ['name' => 'seleccionar_clase_fecha', 'value' => 'si']) ?>
+
+    <?php else : ?>
+        <?= Form::close() ?>
+
+        <div class="barraCategoria">
+            <h3 class="tituloCategoria">Asistencias</h3>
+        </div>
+
+            <?php
+            $id_clase_anterior = null;
+            $fecha_anterior = null;
+            ?>
+            <table>
+                <?php foreach ($listTurno->items as $Turno) : ?>
+                    <?php if ($id_clase_anterior != $Turno->id_clase) : ?>
+                        <tr>
+                            <th colspan="7">
+                                Clase: <?= $Turno->nombre ?>
+                            </th>
+                        </tr>
+                    <?php endif ?>
+                    <?php if ($fecha_anterior != $Turno->fecha) : ?>
+                        <tr>
+                            <th colspan="7">
+                                Fecha: <?= $Turno->fecha ?>
+                            </th>
+                        </tr>
+                    <?php endif ?>
+                    <?php if ($id_clase_anterior != $Turno->id_clase || $fecha_anterior != $Turno->fecha) : ?>
+                        <tr>
+                            <th>Socio</th>
+                            <th>DNI</th>
+                        </tr>
+                    <?php endif ?>
+                    <tr>
+                        <td>
+                            <strong><?= $Turno->socio_apellido . ', ' . $Turno->socio_nombre; ?></strong>
+                        </td>
+                        <td><strong><?= $Turno->socio_dni; ?></strong></td>
+                    </tr>
+                    <?php
+                    $id_clase_anterior = $Turno->id_clase;
+                    $fecha_anterior = $Turno->fecha;
+                    ?>
+                <?php endforeach ?>
+            </table>
+        <?php if ($listTurno->prev) echo Html::linkAction("index/$listTurno->prev/", '<< Anterior |') ?>
+        <?php if ($listTurno->next) echo Html::linkAction("index/$listTurno->next/", 'Próximo >>') ?>
+    <?php endif ?>
+</div>

@@ -1,0 +1,65 @@
+<div class="content">
+	<?php View::content() ?>
+	<h3>Asistencias</h3>
+
+	<?= Form::open(); // por defecto llama a la misma url 
+	?>
+	<!-- Consigna 4. Registro de asistencias de socios. -->
+	<?php if (!isset($categoria_seleccionada)) : ?>
+		<label>DNI
+			<?= Form::text('Socios.dni', ['required' => 'required']) ?></label>
+
+		<label>Socio
+			<?= Form::select('Turnos.id_socio', $selectorSocios) ?></label>
+
+		<?= Form::submit('Siguiente', ['name' => 'seleccionar_categoria', 'value' => 'si']) ?>
+
+	<?php else : ?>
+
+		<h4>Turno para </h4>
+		<?= Form::hidden('Turnos.id_socio') ?>
+
+		<label> Clase
+			<?= Form::select('Turnos.id_clase', $clases) ?></label>
+
+		<label> Fecha
+			<?= Form::date('Turnos.fecha', ['required' => 'required']) ?></label>
+
+		<?php if (!isset($fecha_seleccionada) || !isset($clase_seleccionada)) : ?>
+
+			<?= Form::submit('Consultar', ['name' => 'seleccionar_clase_fecha', 'value' => 'si']) ?>
+
+		<?php else : ?>
+
+			<?php if ($categoria_seleccionada == 'alumno') : ?>
+				<label> Alumno
+					<?= Form::select('Turnos.id_alumno', $alumnos) ?></label>
+			<?php endif ?>
+
+			<label> <?= $categoria_seleccionada == 'alumno' ? 'Instructor' : 'Socio' ?>
+				<?= Form::select('Turnos.id_socio', $socios) ?></label>
+
+			<label>Horario
+				<?= Form::time('Turnos.HorarioInicio') ?></label>
+
+			
+
+			<h5>Horarios ya ocupados</h5>
+			<?php if (empty($horariosOcupados)) : ?>
+				<p>No hay horarios ocupados para el socio seleccionado.</p>
+			<?php else : ?>
+				<?php foreach ($horariosOcupados as $h) : ?>
+					<p><?= $h->HorarioInicio . ' a ' . $h->HorarioFin; ?> Hs.</p>
+				<?php endforeach ?>
+			<?php endif ?>
+			<?= Form::submit('Confirmar asistencia', ['name' => 'agregar', 'value' => 'si']) ?>
+
+		<?php endif ?>
+
+
+	<?php endif ?>
+
+	<p style="margin-top: 15px;"><?= Html::link('turno/alta/', 'Volver a comenzar') ?></p>
+
+	<?= Form::close() ?>
+</div>

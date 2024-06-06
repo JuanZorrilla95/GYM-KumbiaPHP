@@ -1,0 +1,37 @@
+<div class="content">
+	<?php View::content() ?>
+
+	<div class="barraCategoria">
+		<h3 class="tituloCategoria">Clases</h3>
+		<i class="fa fa-plus-circle icono-categoria" aria-hidden="true"><?= Html::linkAction("alta/", ' Nuevo') ?></i>
+	</div>
+
+	<table>
+		<th>ID</th>
+		<th>Nombre Clase</th>
+		<th>Instructor</th>
+		<th>Día</th>
+		<th>Horario Inicio</th>
+		<th>Horario Fin</th>
+		<th colspan="2">Acciones</th>
+		<th>Inscriptos</th>
+
+		<?php foreach ($listClase->items as $clase) : ?>
+			<tr>
+				<td><strong><?= $clase->id ?> </strong></td>
+				<td><strong> <?= $clase->nombre ?> </strong></td> <!-- modelo-->
+				<td><strong> <?= $clase->instructor ?> </strong></td>
+				<td><strong> <?= $clase->dias ?> </strong></td><!-- matricula-->
+				<td><strong> <?= $clase->HorarioInicio ?> </strong></td>
+				<td><strong> <?= $clase->HorarioFin ?> </strong></td>
+
+				<td><?= Html::linkAction("modif/$clase->id/", 'Editar') ?> </td>
+				<td><?= Html::linkAction("baja/$clase->id/", 'Borrar') ?> </td>
+				<td><?= Html::linkAction("../inscripcion/", 'Lista de inscriptos') ?></td>
+			</tr>
+		<?php endforeach ?>
+	</table>
+
+	<?php if ($listClase->prev) echo Html::linkAction("index/$listClase->prev/", '<< Anterior |') ?>
+	<?php if ($listClase->next) echo Html::linkAction("index/$listClase->next/", 'Próximo >>') ?>
+</div>

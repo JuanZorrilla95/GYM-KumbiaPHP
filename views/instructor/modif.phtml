@@ -1,0 +1,27 @@
+<div class="content">
+	<?php View::content() ?>
+	<h3>Editar Instructor:</h3>
+
+	<?= Form::open(); // por defecto llama a la misma url 
+	?>
+
+	<label>Nombre
+		<?= Form::text('Instructores.nombre') ?></label>
+
+	<label>Apellido
+		<?= Form::text('Instructores.apellido') ?></label>
+
+	<label>Fecha de Nacimiento
+		<?= Form::date('Instructores.fechaNacimiento') ?></label>
+
+	<label>Fecha de Ingreso
+		<?= Form::date('Instructores.fechaIngreso') ?></label>
+
+	<label>Especialidad
+		<?= Form::select('Instructores.especialidad', ['Seleccionar' => 'Seleccionar', 'musculación' => 'musculación', 'aerobicos' => 'aerobicos', 'box' => 'box', 'crossfit' => 'crossfit', 'functional' => 'functional']) ?></label>
+
+	<?= Form::hidden('Instructores.id') ?>
+	<?= Form::submit('Actualizar') ?>
+
+	<?= Form::close() ?>
+</div>

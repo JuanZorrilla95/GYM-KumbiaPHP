@@ -1,0 +1,27 @@
+<div class="content">
+	<?php View::content() ?>
+	<h3>Alta de clases</h3>
+
+	<?= Form::open(); // por defecto llama a la misma url 
+	?>
+
+	<label>Nombre Clase
+		<?= Form::select('Clases.nombre', ['Seleccionar' => 'Seleccionar', 'musculación' => 'musculación', 'aerobicos' => 'aerobicos', 'box' => 'box', 'crossfit' => 'crossfit', 'functional' => 'functional']) ?></label>
+
+	<label>Instructor
+		<?= Form::select('Clases.instructor', ['Carlos Alcaraz' => 'Carlos Alcaraz', 'Mario Pereira' => 'Mario Pereira	', 'Evelin Gieco' => 'Evelin Gieco', 'Mario Lopez' => 'Mario Lopez', 'Carlos Gomez' => 'Carlos Gomez']) ?></label>
+
+	<label>Día
+		<?= Form::select('Clases.dias', array('Seleccionar' => 'Seleccionar', 'Lunes' => 'Lunes', 'Martes' => 'Martes', 'Miercoles' => 'Miercoles', 'Jueves' => 'Jueves', 'Viernes' => 'Viernes')) ?></label>
+
+	<label>Horario inicio
+		<?= Form::time('Clases.HorarioInicio') ?></label>
+
+	<label>Horario fin
+		<?= Form::time('Clases.HorarioFin') ?></label>
+	
+	<?= Form::hidden('Clases.id') ?>
+	<?= Form::submit('Agregar') ?>
+
+	<?= Form::close() ?>
+</div>

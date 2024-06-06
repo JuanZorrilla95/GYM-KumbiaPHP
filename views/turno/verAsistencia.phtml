@@ -1,0 +1,53 @@
+<div class="content">
+    <?php View::content() ?>
+    <?php
+    Tag::css('empresa'); // Pone en lista un CSS (app/public/css/bienvenida.css)
+    echo Html::includeCss(); // Adiciona los recursos enlazados de la turno en el proyecto  
+
+    $arrayTurnos =  array();
+    foreach ($listaTurnos as $turno) // Armo un array con formato adecuado para cargar el select que voy a usar en la grilla
+    {
+        $arrayTurnos[$turno->id] = $turno->nombre . ' ' . $turno->nro_turno;
+    }
+    ?>
+
+    <h4>Turno Nro:
+        <strong><?php echo $nro_turno; ?></strong>
+    </h4>
+
+    <table style="text-align: center;">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Socio</th>
+            <th>DNI</th>
+            <th colspan="2">Acciones</th>
+        </tr>
+
+        <?php foreach ($listTurno as $turno) :
+        ?>
+            <tr>
+                <td><strong> <?= $turno->id ?> </strong></td>
+                <td><strong><?= $turno->nombre ?> </strong></td>
+                <td><strong><?= $turno->socio_apellido . '' . $turno->socio_nombre; ?></strong></td>
+                <td><strong><?= $turno->socio_dni; ?></strong></td>    
+            </tr>
+            <?php
+            ?>
+        <?php endforeach ?>
+        <tr>
+            <td></td>
+            <?= Form::open('turno/agregarTurno/' . $nro_turno); // Por defecto llama a la misma URL 
+            ?>
+            <td><?= Form::select('Turnos.id_clase', $clases = ['Musculacion', 'Aerobicos', 'Box', 'Crossfit', 'Functional']) ?></label></td>
+            <td></td>
+            <td></td>
+            
+            <!-- Celda de instructor vacía -->
+            <td><?= Form::date('Turnos.fecha', ['required' => 'required']) ?></label></td>
+            <td><?= Form::submit('Consultar asistencia') ?></td>
+            <?= Form::close() ?>
+        </tr>
+    </table>
+    <br>
+</div>

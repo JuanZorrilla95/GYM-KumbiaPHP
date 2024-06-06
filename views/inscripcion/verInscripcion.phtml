@@ -1,0 +1,55 @@
+<div class="content">
+    <?php View::content() ?>
+    <?php
+    Tag::css('empresa'); // Pone en lista un CSS (app/public/css/bienvenida.css)
+    echo Html::includeCss(); // Adiciona los recursos enlazados de la clase en el proyecto  
+
+    $arrayClases =  array();
+    foreach ($listaClases as $clase) // Armo un array con formato adecuado para cargar el select que voy a usar en la grilla
+    {
+        $arrayClases[$clase->id] = $clase->nombre;
+    }
+    ?>
+
+    <h4>Inscripcion Nro:
+        <strong><?php echo $nro_inscripcion; ?></strong>
+    </h4>
+
+    <table style="text-align: center;">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Días</th>
+            <th>Horario</th>
+            <th>Instructor</th>
+            <th colspan="1">Acciones</th>
+        </tr>
+
+        <?php foreach ($listClaseInscripcion as $claseInscripcion) :
+        ?>
+            <tr>
+                <td><strong><?= $claseInscripcion->id ?> </strong></td>
+                <td><strong><?= $claseInscripcion->nombre ?> </strong></td>
+                <td><strong><?= $claseInscripcion->dias ?> </strong></td>
+                <td><strong><?= $claseInscripcion->HorarioInicio ?> </strong></td>
+                <td><strong><?= $claseInscripcion->instructor ?> </strong></td>
+                <td><?= Html::linkAction("bajaInscripcionClase/$nro_inscripcion/$claseInscripcion->id_detalle_clase_inscripcion", 'Borrar') ?></td>
+            </tr>
+            <?php
+            ?>
+        <?php endforeach ?>
+        <tr>
+            <td></td>
+            <?= Form::open('inscripcion/agregarClase/' . $nro_inscripcion); // Por defecto llama a la misma URL 
+            ?>
+            <td><?= Form::select('clases', $arrayClases) ?></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <!-- Celda de instructor vacía -->
+            <td><?= Form::submit('Inscribirse a clase') ?></td>
+            <?= Form::close() ?>
+        </tr>
+    </table>
+    <br>
+</div>

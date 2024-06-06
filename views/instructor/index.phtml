@@ -1,0 +1,27 @@
+<div class="content">
+    <?php View::content() ?>
+
+    <div class="barraCategoria">
+        <h3 class="tituloCategoria">Instructores</h3>
+        <i class="fa fa-plus-circle icono-categoria" aria-hidden="true"><?= Html::linkAction("alta/", ' Nuevo') ?></i>
+    </div>
+
+    <table>
+        <th>Nombre, Apellido</th>
+        <th>Fecha de ingreso</th>
+        <th>Especialidad</th>
+        <th colspan="2">Acciones</th>
+        <?php foreach ($listInstructor->items as $instructor) : ?>
+            <tr>
+            <td><strong><?= $instructor->nombre ?> , <?= $instructor->apellido ?></strong> </td>
+                <td><strong> <?= $instructor->fechaIngreso ?> </strong>
+                <td><strong> <?= $instructor->especialidad ?> </strong>
+                <td><?= Html::linkAction("modif/$instructor->id/", 'Editar') ?> </td>
+                <td><?= Html::linkAction("baja/$instructor->id/", 'Borrar') ?> </td>
+            </tr>
+        <?php endforeach ?>
+    </table>
+
+    <?php if ($listInstructor->prev) echo Html::linkAction("index/$listInstructor->prev/", '<< Anterior |') ?>
+    <?php if ($listInstructor->next) echo Html::linkAction("index/$listInstructor->next/", 'Próximo >>') ?>
+</div>

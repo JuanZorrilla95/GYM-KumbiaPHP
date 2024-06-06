@@ -1,0 +1,60 @@
+<div class="content">
+    <?php View::content() ?>
+
+    <div class="barraCategoria">
+        <h3 class="tituloCategoria">Turnos</h3>
+        <i class="fa fa-plus-circle icono-categoria" aria-hidden="true"><?= Html::linkAction("alta/", ' Nuevo') ?></i>
+    </div>
+    <?php
+    $id_clase_anterior = null;
+    $fecha_anterior = null;
+    ?>
+    <table>
+        <?php foreach ($listTurno->items as $Turno) : ?>
+            <?php if ($id_clase_anterior != $Turno->id_clase) : ?>
+                <tr>
+                    <th colspan="7">
+                        Clase: <?= $Turno->nombre ?>
+                    </th>
+                </tr>
+            <?php endif ?>
+            <?php if ($fecha_anterior != $Turno->fecha) : ?>
+                <tr>
+                    <th colspan="7">
+                        Fecha: <?= $Turno->fecha ?>
+                    </th>
+                </tr>
+            <?php endif ?>
+            <?php if ($id_clase_anterior != $Turno->id_clase || $fecha_anterior != $Turno->fecha) : ?>
+                <tr>
+                    <th>ID</th>
+                    <th>Socio</th>
+                    <th>Hora Inicio</th>
+                    <th>Hora Fin</th>
+                    <th colspan="2">Acciones</th>
+                </tr>
+            <?php endif ?>
+            <tr>
+                
+                <td><strong> <?= $Turno->id ?> </strong></td>
+                <td> <strong> <?=
+                                (!empty($Turno->alumno_apellido)) ?
+                                    $Turno->alumno_apellido . ', ' . $Turno->alumno_nombre  :
+                                    $Turno->socio_apellido . ', ' . $Turno->socio_nombre
+                                ?>
+                    </strong>
+                </td>
+                <td><strong> <?= $Turno->HorarioInicio ?> </strong></td>
+                <td><strong> <?= $Turno->HorarioFin ?> </strong></td>
+                <td><?= Html::linkAction("../asistencia/ConsultarAsistencia/", 'Ver asistencias') ?></td>
+
+                <td><?= Html::linkAction("baja/$Turno->id/", 'Borrar') ?> </td>
+            </tr>
+            <?php
+            $id_clase_anterior = $Turno->id_clase;
+            $fecha_anterior = $Turno->fecha;
+            ?>
+        <?php endforeach ?>
+    </table>
+    
+</div>

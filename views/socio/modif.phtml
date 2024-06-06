@@ -1,0 +1,30 @@
+<div class="content">
+        <?php View::content() ?>
+        <h3>Editar Socios</h3>
+
+        <?= Form::open(); // por defecto llama a la misma url 
+        ?>
+        <label>Nombre
+		<?= Form::text('Socios.nombre') ?></label>
+
+	<label>Apellido
+		<?= Form::text('Socios.apellido') ?></label>
+
+	<label>DNI
+		<?= Form::text('Socios.dni') ?></label>
+
+	<label>Fecha de Nacimiento
+		<?= Form::date('Socios.fechaNacimiento') ?></label>
+
+	<label>Fecha Inscripción
+		<?= Form::date('Socios.fechaInscripcion') ?></label>
+
+	<label>Tipo membresía 
+		<?= Form::select('Socios.tipoMembresia', ['Seleccionar' => 'Seleccionar','mensual' => 'Mensual', 'trimestral' => 'Trimestral', 'anual' => 'Anual']) ?></label>
+
+
+        <?= Form::hidden('Socios.id') ?>
+        <?= Form::submit('Actualizar') ?>
+
+        <?= Form::close() ?>
+</div>

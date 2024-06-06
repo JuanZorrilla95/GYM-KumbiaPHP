@@ -1,0 +1,27 @@
+<div class="content">
+    <?php View::content() ?>
+    <h3>Editar Clase</h3>
+
+    <?= Form::open(); // por defecto llama a la misma url 
+    ?>
+
+    <label>Nombre Clase
+        <?= Form::select('Clases.nombre', ['musculación' => 'musculación', 'aerobicos' => 'aerobicos', 'box' => 'box', 'crossfit' => 'crossfit', 'functional' => 'functional']) ?></label>
+
+    <label>Instructor
+        <?= Form::text('Clases.instructor') ?></label>
+
+    <label>Día
+        <?= Form::select('Clases.dias', array('Seleccionar' => 'Seleccionar', 'Lunes' => 'Lunes', 'Martes' => 'Martes', 'Miercoles' => 'Miercoles', 'Jueves' => 'Jueves', 'Viernes' => 'Viernes')) ?></label>
+
+    <label>Horario inicio
+        <?= Form::time('Clases.HorarioInicio') ?></label>
+
+    <label>Horario fin
+        <?= Form::time('Clases.HorarioFin') ?></label>
+<br>
+    <?= Form::hidden('Clases.id') ?>
+    <?= Form::submit('Actualizar') ?>
+
+    <?= Form::close() ?>
+</div>
